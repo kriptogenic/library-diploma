@@ -33,6 +33,17 @@ class LibraryResource extends ModelResource
         ];
     }
 
+    public function detailFields(): array
+    {
+        return [
+            Block::make([
+                ID::make()->sortable(),
+                Text::make('Name'),
+                Text::make('Uuid'),
+            ]),
+        ];
+    }
+
     public function rules(Model $item): array
     {
         return [];
