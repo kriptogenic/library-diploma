@@ -6,7 +6,7 @@ use App\Models\Book;
 
 class BookController extends Controller
 {
-    public function index()
+    public function __invoke()
     {
         return Book::paginate();
     }
