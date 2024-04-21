@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use App\MoonShine\Resources\BookResource;
+use App\MoonShine\Resources\LibraryResource;
 use App\MoonShine\Resources\UserResource;
+use App\MoonShine\Resources\VisitResource;
 use MoonShine\Providers\MoonShineApplicationServiceProvider;
 use MoonShine\MoonShine;
 use MoonShine\Menu\MenuGroup;
@@ -45,6 +47,14 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
             MenuItem::make(
                 'Users',
                 new UserResource()
+            ),
+            MenuItem::make(
+                'Libraries',
+                new LibraryResource()
+            ),
+            MenuItem::make(
+                'Visits',
+                new VisitResource()
             ),
 
         ];
