@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Library;
+use App\Models\Visit;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -21,6 +22,11 @@ class VisitController extends Controller
                 'message' => 'Kutubxona topilmadi',
             ], 400);
         }
+
+        $visit = new Visit();
+        $visit->user()->associate($request->user());
+        $visit->library()->associate($library);
+        $visit->save();
 
         return new JsonResponse([
             'message' => 'Ro\'yxatdan o\'tildi',
