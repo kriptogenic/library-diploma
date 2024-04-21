@@ -33,6 +33,7 @@ class BookResource extends ModelResource
                 ID::make()->sortable(),
                 Image::make('Poster')->allowedExtensions(['jpg', 'png']),
                 Text::make('Name'),
+                Text::make('Author'),
                 Text::make('Genre'),
                 Select::make('Language')->options([
                     'O\'zbek',
