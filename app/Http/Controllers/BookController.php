@@ -11,6 +11,10 @@ class BookController extends Controller
     public function __invoke()
     {
         $books = Book::paginate();
-        return BookResource::collection($books);
+        $books->getCollection()->map(function (Book $book) {
+            $book->poster = 'https://library.4w.uz' . Storage::url($book->poster);
+            return $book;
+        });
+        return $books;
     }
 }
