@@ -12,7 +12,7 @@ class BookController extends Controller
         return Book::paginate()->map(function (Book $book) {
             return [
                 ...$book->toArray(),
-                'poster' => Storage::url($book->poster)
+                'poster' => 'https://library.4w.uz' . Storage::url($book->poster)
             ];
         });
     }
