@@ -5,8 +5,13 @@ declare(strict_types=1);
 namespace App\MoonShine\Resources;
 
 use App\Models\Visit;
+use BaconQrCode\Renderer\Image\SvgImageBackEnd;
+use BaconQrCode\Renderer\ImageRenderer;
+use BaconQrCode\Renderer\RendererStyle\RendererStyle;
+use BaconQrCode\Writer;
 use Illuminate\Database\Eloquent\Model;
 
+use MoonShine\Components\FlexibleRender;
 use MoonShine\Fields\Date;
 use MoonShine\Fields\Relationships\BelongsTo;
 use MoonShine\Resources\ModelResource;
@@ -33,7 +38,20 @@ class VisitResource extends ModelResource
                 BelongsTo::make('User', 'user', 'name'),
                 BelongsTo::make('Library', 'library', 'name'),
             ]),
+            Block::make([
+                FlexibleRender::make($this->qr()),
+            ])
         ];
+    }
+
+    private function qr(): string
+    {
+        $renderer = new ImageRenderer(
+            new RendererStyle(400),
+            new SvgImageBackEnd()
+        );
+        $writer = new Writer($renderer);
+        return $writer->writeString('1231212312');
     }
 
     public function rules(Model $item): array

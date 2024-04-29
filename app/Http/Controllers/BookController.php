@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\BookResource;
 use App\Models\Book;
 use Illuminate\Support\Facades\Storage;
 
