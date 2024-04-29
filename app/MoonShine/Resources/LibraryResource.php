@@ -5,8 +5,13 @@ declare(strict_types=1);
 namespace App\MoonShine\Resources;
 
 use App\Models\Library;
+use BaconQrCode\Renderer\Image\SvgImageBackEnd;
+use BaconQrCode\Renderer\ImageRenderer;
+use BaconQrCode\Renderer\RendererStyle\RendererStyle;
+use BaconQrCode\Writer;
 use Illuminate\Database\Eloquent\Model;
 
+use MoonShine\Components\FlexibleRender;
 use MoonShine\Fields\Text;
 use MoonShine\Resources\ModelResource;
 use MoonShine\Decorations\Block;
@@ -41,11 +46,24 @@ class LibraryResource extends ModelResource
                 Text::make('Name'),
                 Text::make('Uuid'),
             ]),
+            Block::make([
+                FlexibleRender::make($this->qr($this->item->uuid)),
+            ])
         ];
     }
 
     public function rules(Model $item): array
     {
         return [];
+    }
+
+    private function qr(string $uuid): string
+    {
+        $renderer = new ImageRenderer(
+            new RendererStyle(400),
+            new SvgImageBackEnd()
+        );
+        $writer = new Writer($renderer);
+        return $writer->writeString($uuid);
     }
 }
